@@ -1,0 +1,153 @@
+{{ roomsForm.pristine | json }}
+<!-- Pristine means that no one has touched the page -->
+{{ roomsForm.dirty | json }}
+{{ roomsForm.valid | json }}
+{{ roomsForm.invalid }}
+
+<!-- {{ roomsForm | json }} -->
+
+<div *ngIf="successMessage !== ''" class="alert alert-success text-dark">
+  {{ successMessage }}
+</div>
+
+<form #roomsForm="ngForm" (ngSubmit)="addRoom(roomsForm)">
+  <div class="form-group">
+    <input
+      required
+      #roomsRoomType="ngModel"
+      class="form-control"
+      type="text"
+      name="roomType"
+      [(ngModel)]="room.roomType"
+      placeholder="Room Type"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf="roomsRoomType.dirty && roomsRoomType.errors?.['required']"
+    >
+      The field is required
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      #roomAmenities="ngModel"
+      required
+      minlength="5"
+      maxlength="20"
+      class="form-control"
+      type="text"
+      name="amenities"
+      [(ngModel)]="room.amenities"
+      placeholder="Amenities"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf="roomAmenities.dirty && roomAmenities.errors?.['minlength']"
+    >
+      Amenities should a minimum of 5 characters
+    </div>
+    <!-- <div
+      class="container bg-success"
+      *ngIf="roomAmenities.dirty && roomAmenities.errors"
+    >
+      {{ roomAmenities.errors | json }}
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf="roomAmenities.dirty && roomAmenities.errors"
+    >
+      The Field is required
+    </div> -->
+  </div>
+  <div class="form-group">
+    <input
+      #roomsPrice="ngModel"
+      required
+      min="5"
+      max="20"
+      class="form-control"
+      type="number"
+      name="price"
+      [(ngModel)]="room.price"
+      placeholder="Room price per night"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf=" roomAmenities.dirty && roomsPrice.errors?.['min'] "
+    >
+      minimum length is 5 characters
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf=" roomAmenities.dirty && roomsPrice.errors?.['max'] "
+    >
+      maximum length is 20 characters
+    </div>
+  </div>
+  <div class="form-group">
+    <input
+      required
+      #roomPhotos="ngModel"
+      class="form-control"
+      type="text"
+      name="photos"
+      [(ngModel)]="room.photos"
+      placeholder="Photos"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf="roomAmenities.dirty && roomPhotos.errors?.['required']"
+    >
+      please provide the url to the photos
+    </div>
+  </div>
+  <div>
+    <input
+      required
+      class="form-control"
+      type="datetime"
+      name="checkintime"
+      [(ngModel)]="room.checkintime"
+      placeholder="check-in time"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      required
+      class="form-control"
+      type="datetime"
+      name="checkoutime"
+      [(ngModel)]="room.checkouttime"
+      placeholder="check-out time"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      required
+      #roomRating="ngModel"
+      min="1"
+      max="5"
+      class="form-control"
+      type="number"
+      name="rating"
+      [(ngModel)]="room.rating"
+      placeholder="rating"
+    />
+    <div
+      class="alert alert-danger"
+      *ngIf=" roomAmenities.dirty && roomRating.errors?.['min'] "
+    >
+      minimum length is 5 characters
+    </div>
+    <div
+      class="alert alert-danger"
+      *ngIf=" roomAmenities.dirty && roomRating.errors?.['max'] "
+    >
+      maximum length is 5 characters
+    </div>
+  </div>
+  <button [disabled]="roomsForm.invalid" class="btn btn-primary" type="submit">
+    submit
+  </button>
+</form>
+<!-- (click)="addRoom(roomsForm)" -->

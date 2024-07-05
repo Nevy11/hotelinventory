@@ -1,0 +1,50 @@
+<div class="h2 my-3 title">
+  {{ title }}
+</div>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th class="bg-success text-white">index</th>
+      <th class="bg-primary text-dark">Even/odd</th>
+      <th class="bg-danger text-warning">Room Number</th>
+      <th class="bg-warning text-danger">Room Type</th>
+      <th class="bg-dark text-primary">Room Price</th>
+      <th class="bg-white text-success">Room Amenities</th>
+      <th>Checkin Time</th>
+      <th>Rating</th>
+      <th class="bg-warning text-primary">select Room</th>
+    </tr>
+    <tr
+      [ngClass]="e ? 'even' : 'odd'"
+      *ngFor="
+        let room of rooms | slice : 0 : 100;
+        let e = even;
+        let o = odd;
+        let i = index
+      "
+    >
+      <td class="bg-success text-white">{{ i }}</td>
+      <td class="bg-primary text-dark">{{ e ? "even" : "odd" }}</td>
+      <td class="bg-danger text-warning">{{ room.roomNumber }}</td>
+      <td class="bg-warning text-danger">{{ room.roomType | lowercase }}</td>
+      <td class="bg-dark text-primary">{{ room.price | currency : "Ksh" }}</td>
+      <td class="bg-white text-success">{{ room.amenities | uppercase }}</td>
+      <td>{{ room.checkintime | date : "yy-mm-dd" }}</td>
+      <td>{{ room.rating | number : "2.3-5" }}</td>
+      <td class="bg-warning text-primary">
+        <!-- <button class="btn btn-success" (click)="selectRoom(room)">
+          select
+        </button> -->
+        <button
+          [routerLink]="['/rooms', room.roomNumber]"
+          class="btn btn-success text-white"
+        >
+          Book Room
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <hinv-rooms-booking></hinv-rooms-booking> -->

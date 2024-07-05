@@ -1,0 +1,52 @@
+<!-- <h1>welcome to {{ hotelName }}</h1> -->
+
+<hinv-header></hinv-header>
+<!-- <hinv-header></hinv-header>
+<hinv-header></hinv-header> -->
+
+<!-- {{ room$ | async | json }} -->
+<router-outlet></router-outlet>
+
+<div
+  [ngStyle]="{ color: rooms.availableRooms ? 'green' : 'yellow' }"
+  [hidden]="hideRooms"
+>
+  number of rooms:
+
+  <div [innerText]="numOfRooms"></div>
+</div>
+<div>
+  <div>number of booked rooms:</div>
+  <!-- {{ rooms.bookedRooms > 0 ?? "no booked rooms" }} -->
+</div>
+
+<div class="container bg-primary text-dark my-5" *ngIf="selectedRoom">
+  {{ selectedRoom | json }}
+</div>
+
+<div class="h1">
+  <!-- {{ getError$ | async }} -->
+  Number of Rooms: {{ roomsCount$ | async }}
+</div>
+
+<div class="container-sm container-md container-lg my-5 text-white">
+  <button class="btn btn-danger" (click)="addRoom()">Add Room</button>
+</div>
+
+<div *ngIf="room$ | async as rooms">
+  <hinv-rooms-list
+    [rooms]="rooms"
+    [title]="title"
+    (roomSelected)="selectRoom($event)"
+  >
+  </hinv-rooms-list>
+</div>
+
+<button (click)="toggle()">toggle</button>
+<br />
+<button (click)="editRoom()" class="btn btn-primary">Edit Room</button>
+<br />
+<button (click)="deleteRoom()" class="btn btn-danger">Delete Room</button>
+<!-- soft delete (alert key word) rather than hard delete -->
+
+<div class="h1">{{ totalBytes }} loaded</div>
